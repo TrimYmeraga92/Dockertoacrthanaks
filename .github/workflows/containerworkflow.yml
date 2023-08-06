@@ -6,7 +6,7 @@ on:
 env:
   ACR_LOGON_SERVER: ${{ secrets.ACR_NAME }}.azurecr.io
   IMAGE_NAME: azurecr.io/webapp:${{ github.sha }}
-  ACR_NAME: fromgithub2408.azurecr.io
+  REGISTRY_LOGIN_SERVER: fromgithub2408.azurecr.io
 
 jobs:
     build-deploy-image:
@@ -36,7 +36,7 @@ jobs:
           #   GH_REPO_O: ${{ github.repository_owner }}
           #   GH_T: ${{ secrets.GITHUB_TOKEN }
         - name: Login to ACR 
-          run: echo ${{ env.ACR_NAME }} | docker login -u ${{ secret.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
+          run: echo ${{ env.REGISTRY_LOGIN_SERVER }} | docker login -u ${{ secret.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
         - name: Get the version
           id: vars
           run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
